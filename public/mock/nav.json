@@ -1,0 +1,18 @@
+{
+  "item1":{
+    "name":"首页",
+    "url": "/home.svg"
+  },
+  "item2":{
+    "name":"分类",
+    "url":"~assets/img/category.svg"
+  },
+  "item3":{
+    "name":"购物车",
+    "url":"~assets/img/shopcar.svg"
+  },
+  "item4":{
+    "name":"我的",
+    "url":"~assets/img/rpofile.svg"
+  }
+}
