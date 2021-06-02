@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item">
-    <a :href="goodsItem.link">
+    <a href="#">
       <img :src="goodsItem.show.img" alt="">
       <div class="good-info">
         <p>{{goodsItem.title}}</p>
