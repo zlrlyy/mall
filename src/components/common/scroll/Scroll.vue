@@ -38,17 +38,25 @@
         disableMouse: false
       });
       //2、监听滚动位置
-      this.scroll.on('scroll', position => {
+      if(this.probeType == 2 || this.probeType == 3){
+        this.scroll.on('scroll', position => {
         this.$emit('scroll',position)
-      });
+        });
+      }
+      
       //3、监听上拉事件
-      this.scroll.on('pullingUp', () => {
+      if(this.pullUpLoad == true){
+        this.scroll.on('pullingUp', () => {
         this.$emit('pullingUp')
       })
+      }
     },
     methods:{
+      refresh(){
+        this.scroll && this.scroll.refresh()
+      },
       scrollTo(x,y,time=500){
-        this.scroll.scrollTo(x,y,time)
+        this.scroll && this.scroll.scrollTo(x,y,time)
       },
       finishPullUp(){
         this.scroll.finishPullUp()

@@ -31,6 +31,7 @@
   import BackTop from 'components/common/backtop/backTop'
  
   import {getHomeMultidata,getHomeGoods} from 'network/home' 
+  import {debounce} from 'common/utils.js'
 
   export default {
     name:'Home',
@@ -68,7 +69,16 @@
       this.getHomeGood('new'),
       this.getHomeGood('sell')
     },
+    mounted(){
+      const refresh = debounce(this.$refs.scroll.refresh,50)
+
+      this.$bus.$on('homeImageLoad',()=>{
+        // console.log('....');
+        refresh()
+      })
+    },
     methods:{
+      
       backClick(){
         this.$refs.scroll.scrollTo(0,0)
       },
@@ -96,7 +106,7 @@
       // 网络请求相关
       getHomeData(){
         getHomeMultidata().then(res => {
-        console.log(res);
+        // console.log(res);
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list
         })
@@ -105,6 +115,7 @@
         const page = this.goods[type].page +1;
         getHomeGoods(type,page).then(res => {
           // console.log(res);
+          // console.log(this);
           this.goods[type].list.push(...res.data.list);
           this.goods[type].page +=1;
           this.$refs.scroll.finishPullUp()
