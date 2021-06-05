@@ -5,14 +5,16 @@
         <div>购物街</div>
       </template>
     </nav-bar>
+    <tab-control :title="['流行','新款','精选']" class='tab-control' 
+      @tabClick="tabClick" ref="TabControl1" v-show="isTabFixed"/>
 
     <better-scroll class="home-content" ref="scroll" :probe-type="3" 
     @scroll="contentScroll" :pull-up-load="true" @pullingUp="loadMore">
       <home-swiper :banners="banners" />
-      <recommend-view :recommends="recommends"></recommend-view>
+      <recommend-view :recommends="recommends" @commendImageLoad="commendImageLoad"></recommend-view>
       <feature-view/>
-      <tab-control :title="['流行','新款','精选']" class='tab-control' 
-      @tabClick="tabClick"/>
+      <tab-control :title="['流行','新款','精选']"  
+      @tabClick="tabClick" ref="TabControl2" v-show="!isTabFixed"/>
       <goods-list :goods="showGoods"/>
     </better-scroll>
     <back-top @click.native="backClick" v-show="isShowBackTop"/> 
@@ -55,7 +57,9 @@
           'sell':{page : 0,list:[]},
         },
         currentType:'pop',
-        isShowBackTop:false
+        isShowBackTop:false,
+        tabOffsetTop:0,
+        isTabFixed:false
       }
     },
     computed:{
@@ -73,17 +77,21 @@
       const refresh = debounce(this.$refs.scroll.refresh,50)
 
       this.$bus.$on('homeImageLoad',()=>{
-        // console.log('....');
         refresh()
       })
+      
+     
     },
     methods:{
-      
+      commendImageLoad(){
+        this.tabOffsetTop = this.$refs.TabControl2.$el.offsetTop
+      },
       backClick(){
         this.$refs.scroll.scrollTo(0,0)
       },
       contentScroll(position){
         this.isShowBackTop = (-position.y) > 1000
+        this.isTabFixed = (-position.y+44) >this.tabOffsetTop
       },
       loadMore(){
         this.getHomeGood(this.currentType);
@@ -102,6 +110,8 @@
             this.currentType = 'sell';
             break;
         }
+        this.$refs.TabControl1.currentIndex = index;
+        this.$refs.TabControl2.currentIndex = index;
       },
       // 网络请求相关
       getHomeData(){
@@ -136,5 +146,9 @@
   .home-content{
     overflow: hidden;
     height: calc(100% - 88px)
+  }
+  .tab-control{
+    position: relative;
+    z-index: 10;
   }
 </style>

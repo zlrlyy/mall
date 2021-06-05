@@ -37,8 +37,6 @@
   display: flex;
   background-color: #fff;
   padding-bottom: 5px;
-  position: sticky;
-  top: 44px;
   z-index: 10;
 
 }
