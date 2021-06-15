@@ -30,10 +30,10 @@
   import TabControl from 'components/content/tabcontrol/TabControl'
   import GoodsList from 'components/content/goods/GoodsList'
   import BetterScroll from 'components/common/scroll/Scroll'
-  import BackTop from 'components/common/backtop/backTop'
  
   import {getHomeMultidata,getHomeGoods} from 'network/home' 
   import {debounce} from 'common/utils.js'
+  import {backTopMixin} from 'common/mixin.js'
 
   export default {
     name:'Home',
@@ -45,8 +45,8 @@
       TabControl,
       GoodsList,
       BetterScroll,
-      BackTop
     },
+    mixins:[backTopMixin],
     data(){
       return {
         banners:[],
@@ -57,15 +57,24 @@
           'sell':{page : 0,list:[]},
         },
         currentType:'pop',
-        isShowBackTop:false,
         tabOffsetTop:0,
-        isTabFixed:false
+        isTabFixed:false,
+        saveY:0,
+        homeGoodsListItemListener:null,
       }
     },
     computed:{
       showGoods(){
         return this.goods[this.currentType].list
       }
+    },
+    activated() {
+      this.$refs.scroll.refresh()
+      this.$refs.scroll.scrollTo(0,this.saveY,1)
+    },
+    deactivated() {
+      this.saveY = this.$refs.scroll.saveCurrentY();
+      this.$bus.$off('homeImageLoad',this.homeGoodsListItemListener)
     },
     created(){
       this.getHomeData(),
@@ -75,19 +84,14 @@
     },
     mounted(){
       const refresh = debounce(this.$refs.scroll.refresh,50)
-
-      this.$bus.$on('homeImageLoad',()=>{
+      this.homeGoodsListItemListener = ()=>{
         refresh()
-      })
-      
-     
+      }
+      this.$bus.$on('homeImageLoad',this.homeGoodsListItemListener)
     },
     methods:{
       commendImageLoad(){
         this.tabOffsetTop = this.$refs.TabControl2.$el.offsetTop
-      },
-      backClick(){
-        this.$refs.scroll.scrollTo(0,0)
       },
       contentScroll(position){
         this.isShowBackTop = (-position.y) > 1000
@@ -131,7 +135,7 @@
           this.$refs.scroll.finishPullUp()
         })
       }
-    }
+    } 
   }
 </script>
 

@@ -20,9 +20,10 @@
     line-height: 44px;
     text-align: center;
     box-shadow: 0 1px 1px 1px rgba(100,100,100,0.1);
+    font-size: 18px;
   }
   .left,.right{
-    width: 100px;
+    width: 60px;
   }
   .center{
     flex: 1;

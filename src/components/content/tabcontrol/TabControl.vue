@@ -38,13 +38,13 @@
   background-color: #fff;
   padding-bottom: 5px;
   z-index: 10;
-
+  
 }
 .tab-control-item{
   flex: 1;
   text-align: center;
   line-height: 35px;
-  font-size: 0.95rem;
+  font-size: 14px;
 }
 .active{
   color: var(--color-high-text);

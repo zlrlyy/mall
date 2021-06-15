@@ -1,13 +1,11 @@
 <template>
-  <div class="goods-item">
-    <a href="#">
-      <img :src="goodsItem.show.img" alt="" @load="homeImageLoad"> 
+  <div class="goods-item" @click="itemClick">
+      <img v-lazy="showImage" alt="" @load="homeImageLoad"> 
       <div class="good-info">
         <p>{{goodsItem.title}}</p>
         <span class="price">￥{{goodsItem.price}}</span>
         <span class="collect">{{goodsItem.cfav}}</span>
       </div>
-    </a>
   </div>
 </template>
 
@@ -22,9 +20,19 @@
         }
       }
     },
+    computed:{
+      showImage(){
+        return this.goodsItem.image || this.goodsItem.show.img
+      }
+    },
     methods:{
       homeImageLoad(){
-       this.$bus.$emit('homeImageLoad')
+          this.$bus.$emit('homeImageLoad')
+      },
+      itemClick(){
+        if(this.$route.path.indexOf('home') !== -1){
+          this.$router.push({path:'/detail',query:{iid:this.goodsItem.iid}})
+        }
       }
     }
   }
@@ -37,12 +45,12 @@
   }
   .goods-item img{
     width: 95%;
-    height: 88%;
+    height: 85%;
     border-radius: 4px;
   }
   .good-info{
     width: 95%;
-    font-size: 0.7rem;
+    font-size: 12px;
     padding: 0 7px;
   }
   .good-info p{

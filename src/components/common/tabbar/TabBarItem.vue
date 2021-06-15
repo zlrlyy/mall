@@ -42,7 +42,7 @@
   flex: 1;
   height: 44px;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 10px;
   }
 
 .tab-bar-items img{

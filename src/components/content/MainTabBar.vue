@@ -23,7 +23,7 @@
           <div>分类</div> 
         </template>
       </tab-bar-item>
-      <tab-bar-item link='/shopcar'>
+      <tab-bar-item link='/shopcart'>
         <template v-slot:tab-bar-img>
           <img src="~assets/img/shopcar.svg" alt="购物车" />
         </template>

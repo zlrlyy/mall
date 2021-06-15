@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <router-view/>
-    <main-tab-bar></main-tab-bar>
+    <keep-alive exclude="Detail">
+      <router-view/>
+    </keep-alive>
+
+    <main-tab-bar v-if="isActive"></main-tab-bar>
   </div>
 </template>
 
@@ -13,6 +16,21 @@ export default {
   components: {
     MainTabBar
   },
+  data(){
+    return {
+      isActive:true
+    }
+  },
+  watch:{
+    $route(to,from){
+      if(to.path == '/detail'){
+        this.isActive = false
+      }
+      if(from.path == '/detail'){
+        this.isActive = true
+      }
+    }
+  }
 };
 </script>
 

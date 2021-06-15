@@ -60,6 +60,9 @@
       },
       finishPullUp(){
         this.scroll.finishPullUp()
+      },
+      saveCurrentY(){
+        return this.scroll.y?this.scroll.y:0
       }
     }
   }

@@ -3,9 +3,9 @@ import Router from 'vue-router'
 
 const Home = () => import('views/home/Home.vue')
 const Category = () => import('views/category/Category.vue')
-const Shopcar = () => import('views/shopcar/Shopcar.vue')
+const ShopCart = () => import('views/shopcart/ShopCart.vue')
 const Profile = () => import('views/profile/Profile.vue')
-
+const Detail = () => import('views/details/Detail.vue')
 
 Vue.use(Router)
 
@@ -24,12 +24,16 @@ export default new Router({
       component:Category
     },
     {
-      path:'/shopcar',
-      component:Shopcar
+      path:'/shopcart',
+      component:ShopCart
     },
     {
       path:'/profile',
       component:Profile
+    },
+    {
+      path:'/detail',
+      component:Detail
     }
   ],
   mode:'history'
