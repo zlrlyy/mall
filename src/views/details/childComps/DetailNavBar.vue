@@ -1,10 +1,11 @@
 <template>
   <div>
     <nav-bar>
-      <div slot="left" @click="backClick">
-        <img src="~assets/img/common/back.svg" alt="返回" 
-        class="detail-left">
-      </div>
+      <template #left >
+        <div @click="backClick">
+          <img src="~assets/img/common/back.svg" alt="返回" class="detail-left">
+        </div>
+      </template>
       <div slot="center" class="detail-center" > 
         <div v-for="(item,index) in title" 
         class="detail-center-item"
@@ -36,7 +37,7 @@ export default {
       this.$emit('titleClick',index)
     },
     backClick(){
-      this.$router.back()
+      this.$router.go(-1)
     }
   }
 }
