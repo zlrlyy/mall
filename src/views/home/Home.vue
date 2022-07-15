@@ -145,7 +145,7 @@
   }
   .home-nav{
     background-color: var(--color-tint);
-    color: #fff;
+    color: #ff2;
   }
   .home-content{
     overflow: hidden;
