@@ -145,7 +145,7 @@
   }
   .home-nav{
     background-color: var(--color-tint);
-    color: #fff;
+    color: #ff2;
   }
   .home-content{
     overflow: hidden;
@@ -153,6 +153,6 @@
   }
   .tab-control{
     position: relative;
-    z-index: 10;
+    z-index: 12;
   }
 </style>
