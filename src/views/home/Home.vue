@@ -153,6 +153,6 @@
   }
   .tab-control{
     position: relative;
-    z-index: 10;
+    z-index: 12;
   }
 </style>
